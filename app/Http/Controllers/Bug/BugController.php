@@ -94,6 +94,7 @@ class BugController extends Controller{
         if(is_null($bug)){
             return response() -> json(array('message'=>'cannot delete because record not found', 'status'=>false),200);
         }
+        BugModel::destroy($id);
         return response() -> json(array('message'=>'succesfully deleted', 'status' => false), 200);
     }
 }
