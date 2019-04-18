@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\BugModel;
 use App\Http\Controllers\Controller;
 use App\Response;
-use Validator;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class BugController extends Controller{
@@ -35,7 +37,7 @@ class BugController extends Controller{
             $bug = new BugModel();
             $bug->name = $request->name;
             $bug->description = $request->description;
-            $bug->photo = $photo->getFilename().'.'.$extension;
+            $bug->photo = "public/uploads/".$photo->getFilename().'.'.$extension;
             $bug->save();
 
             return response()->json(
@@ -64,6 +66,11 @@ class BugController extends Controller{
         if(is_null($bug)){
             return response() -> json(array('message'=>'cannot founf record', 'status' => 200), 200);
         }else{
+            $rules = [
+                'name' => 'required',
+                'description' => 'required|min:10',
+                'photo' => 'required'
+            ];
             $validator = Validator::make($request->all(), $rules);
             if($validator->fails()){
                 return response() -> json(array('message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
@@ -74,7 +81,7 @@ class BugController extends Controller{
                 $bug = new BugModel();
                 $bug->name = $request->name;
                 $bug->description = $request->description;
-                $bug->photo = $photo->getFilename().'.'.$extension;
+                $bug->photo = "public/uploads/".$photo->getFilename().'.'.$extension;
                 $bug->save();    
                 return response()->json(Response::transform($bug, 'successfully updated', true), 200);
             }

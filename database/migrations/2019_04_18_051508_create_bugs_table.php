@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBugModelsTable extends Migration
+class CreateBugsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateBugModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bug_models', function (Blueprint $table) {
+        Schema::create('bugs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('description');
+            $table->string('photo');
+
         });
     }
 
@@ -26,6 +29,6 @@ class CreateBugModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bug_models');
+        Schema::dropIfExists('bugs');
     }
 }
