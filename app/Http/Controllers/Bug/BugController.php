@@ -75,11 +75,10 @@ class BugController extends Controller{
             if($retrieve->name != null){$bug->name = $retrieve->name;}
             if($retrieve->description != null){ $bug->description = $retrieve->description; }
             $bug->save();
-            return response()->json(
-                    Response::transform(
-                        $bug, $bug->name." - ".$bug->description, true
-                    ), 201);
-            }
+            return response()->json(Response::transform($bug, "Successfully updated", true), 201);
+        }else{
+            return response() -> json(array('message'=>'Cannot update because record not found', 'status'=>false),200);
+        }
 
     }
 
