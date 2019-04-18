@@ -66,28 +66,16 @@ class BugController extends Controller{
         if(is_null($bug)){
             return response() -> json(array('message'=>'cannot founf record', 'status' => 200), 200);
         }else{
-            $rules = [
-                'id' => 'required',
-                'name' => 'required',
-                'description' => 'required|min:10'
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if($validator->fails()){
-                return response() -> json(array(
-                    'message' => $id.'check your request again. desc must be 10 char or more and form must be filled',
-                    'status' => false), 400);
-            }else{
-                $photo = $request->file('photo');
+            $photo = $request->file('photo');
+            if($photo != null){
                 $extension = $photo->getClientOriginalExtension();
-                if($photo != null){
-                    Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                }
-                $bug->name = $request->name;
-                $bug->description = $request->description;
+                Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
                 $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
-                $bug->save();    
-                return response()->json(Response::transform($bug, 'successfully updated', true), 200);
             }
+            $bug->name = $request->name;
+            $bug->description = $request->description;
+            $bug->save();
+            return response()->json(Response::transform($bug, 'successfully updated', true), 200);
         }
     }
 
