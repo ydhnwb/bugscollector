@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Bug;
 use Illuminate\Http\Request;
 use App\Models\BugModel;
 use App\Http\Controllers\Controller;
-use App\Utilities;
+use App\Response;
 use Validator;
 
 
 class BugController extends Controller{
 
     public function index(){
-        return response() -> json(Utilities::transform(BugModel::get(), "ok" , true), 200);
+        return response() -> json(Response::transform(BugModel::get(), "ok" , true), 200);
     }
 
 
@@ -39,7 +39,7 @@ class BugController extends Controller{
             $bug->save();
 
             return response()->json(
-                Utilities::transform(
+                Response::transform(
                     $bug, 'successfully created', true
                 ), 201);
         }
@@ -48,9 +48,9 @@ class BugController extends Controller{
     public function show($id)    {
         $bug = BugModel::find($id);
         if(is_null($bug)){
-            return response()->json(Utilities::transform($bug,"record not found", false), 200);
+            return response()->json(Response::transform($bug,"record not found", false), 200);
         }
-        return response() -> json(Utilities::transform($bug,"found", true), 200);
+        return response() -> json(Response::transform($bug,"found", true), 200);
     }
 
 
@@ -76,7 +76,7 @@ class BugController extends Controller{
                 $bug->description = $request->description;
                 $bug->photo = $photo->getFilename().'.'.$extension;
                 $bug->save();    
-                return response()->json(Utilities::transform($bug, 'successfully updated', true), 200);
+                return response()->json(Response::transform($bug, 'successfully updated', true), 200);
             }
         }
     }
