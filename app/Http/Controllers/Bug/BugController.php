@@ -30,8 +30,7 @@ class BugController extends Controller{
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return response() -> json(array(
-                'message' => $request->all(),
-                'status' => false), 400);
+                'message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
         }else{
             $photo = $request->file('photo');
             $extension = $photo->getClientOriginalExtension();
@@ -64,38 +63,23 @@ class BugController extends Controller{
 
 
     public function update(Request $request, $id){
-        $rules = [
-            'name' => 'required',
-            'description' => 'required',
-            'photo' => 'optional'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
-            return response() -> json(array('message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
-        }else{
-            $bug = BugModel::find($id);
-            if($bug != null){
-                if($request->file('photo') != null){
-                    $photo = $request->file('photo');
-                    $extension = $photo->getClientOriginalExtension();
-                    Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                    $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
-                }
-
-                if($request->name != null){$bug->name = $request->name;}
-                if($request->description != null){ $bug->description = $request->description; }
-                //$bug = new BugModel();
-                //$bug->description = $request->description;
-                $bug->save();
-
-                return response()->json(
-                    Response::transform(
-                        $bug, 'successfully created', true
-                    ), 201);
-
+        $bug = BugModel::find($id);
+        if($bug != null){
+            if($request->file('photo') != null){
+                $photo = $request->file('photo');
+                $extension = $photo->getClientOriginalExtension();
+                Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
+                $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
-        }
+            if($request->name != null){$bug->name = $request->name;}
+            if($request->description != null){ $bug->description = $request->description; }
+            $bug->save();
+            return response()->json(
+                    Response::transform(
+                        $bug, $bug->name." - ".$bug->description, true
+                    ), 201);
+            }
+
     }
 
 
