@@ -63,19 +63,26 @@ class BugController extends Controller{
 
     public function update(Request $request, $id){
         $bug = BugModel::find($id);
+        $data = BugModel::find($id);
         if(is_null($bug)){
             return response() -> json(array('message'=>'Cannot found record', 'status' => 200), 200);
         }else{
+            if($request->name != null){$data->name = $request->name;}
+            if($request->description != null){ $data->description = $request->description; }
+
+            BugModel::where('id', $id) -> update(['name' => $data->name, 'description' => $data->description]);
+
             $photo = $request->file('photo');
-            $bug->name = $request->name;
-            $bug->description = $request->description;
+            //$bug->name = $request->name;
+            //$bug->description = $request->description;
             if($photo != null){
                 $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
+                $data->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
+            BugModel::where('id',$id) -> update(['photo' => $data->photo]);
             //$bug->save();
-            return response()->json(Response::transform($bug->save(), $bug->name.'Successfully updated', true), 200);
+            return response()->json(Response::transform(BugModel::find($id), $bug->name.'Successfully updated', true), 200);
         }
     }
 
