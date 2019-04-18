@@ -66,7 +66,7 @@ class BugController extends Controller{
         $retrieve = $request->all();
         $bug = BugModel::find($id);
         if($bug != null){
-            if($retrieve->hasFile('photo')){
+            if($retrieve->file('photo') != null){
                 $photo = $retrieve->file('photo');
                 $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
@@ -76,7 +76,7 @@ class BugController extends Controller{
             if($retrieve->description != null){ $bug->description = $retrieve->description; }
             $bug->id = $id;
             $bug->save();
-            return response()->json(Response::transform(BugModel::find($id), "Successfully updated", true), 201);
+            return response()->json(Response::transform($bug, "Successfully updated", true), 201);
         }else{
             return response() -> json(array('message'=>'Cannot update because record not found', 'status'=>false),200);
         }
