@@ -62,27 +62,37 @@ class BugController extends Controller{
 
 
     public function update(Request $request, $id){
-        $bug = BugModel::find($id);
-        $data = BugModel::find($id);
-        if(is_null($bug)){
-            return response() -> json(array('message'=>'Cannot found record', 'status' => 200), 200);
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'photo' => 'optional'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response() -> json(array('message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
         }else{
-            if($request->name != null){$data->name = $request->name;}
-            if($request->description != null){ $data->description = $request->description; }
+            $bug = BugModel::find($id);
+            if($bug != null){
+                if($request->file('photo') != null){
+                    $photo = $request->file('photo');
+                    $extension = $photo->getClientOriginalExtension();
+                    Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
+                    $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
+                }
 
-            $photo = $request->file('photo');
-            if($photo != null){
-                $extension = $photo->getClientOriginalExtension();
-                Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                $request->photo = "uploads/".$photo->getFilename().'.'.$extension;
+                if($request->name != null){$bug->name = $request->name;}
+                if($request->description != null){ $bug->description = $request->description; }
+                //$bug = new BugModel();
+                //$bug->description = $request->description;
+                $bug->save();
+
+                return response()->json(
+                    Response::transform(
+                        $bug, 'successfully created', true
+                    ), 201);
+
             }
-            $bug->update($request->all());
-            //BugModel::where('id', $id) -> update(['name' => $data->name, 'description' => $data->description]);
-
-
-            //BugModel::where('id',$id) -> update(['photo' => $data->photo]);
-            //$bug->save();
-            return response()->json(Response::transform($bug, $request->name.'Successfully updated', true), 200);
         }
     }
 
