@@ -30,7 +30,7 @@ class BugController extends Controller{
             return response() -> json(array('message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
         }else{
             $photo = $request->file('photo');
-            $extension = $photo->getClientOrginalExtension();
+            $extension = $photo->getClientOriginalExtension();
             Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
             $bug = new BugModel();
             $bug->name = $request->name;
@@ -69,7 +69,7 @@ class BugController extends Controller{
                 return response() -> json(array('message' => 'check your request again. desc must be 10 char or more and form must be filled', 'status' => false), 400);
             }else{
                 $photo = $request->file('photo');
-                $extension = $photo->getClientOrginalExtension();
+                $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
                 $bug = new BugModel();
                 $bug->name = $request->name;
