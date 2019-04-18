@@ -37,7 +37,7 @@ class BugController extends Controller{
             $bug = new BugModel();
             $bug->name = $request->name;
             $bug->description = $request->description;
-            $bug->photo = "public/uploads/".$photo->getFilename().'.'.$extension;
+            $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
             $bug->save();
 
             return response()->json(
@@ -81,7 +81,7 @@ class BugController extends Controller{
                 $bug = new BugModel();
                 $bug->name = $request->name;
                 $bug->description = $request->description;
-                $bug->photo = "public/uploads/".$photo->getFilename().'.'.$extension;
+                $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
                 $bug->save();    
                 return response()->json(Response::transform($bug, 'successfully updated', true), 200);
             }
