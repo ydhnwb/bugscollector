@@ -66,7 +66,7 @@ class BugController extends Controller{
         $retrieve = $request->all();
         $bug = BugModel::find($id);
         if($bug != null){
-            if($retrieve->file('photo') != null){
+            if($retrieve->hasFile('photo')){
                 $photo = $retrieve->file('photo');
                 $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
@@ -80,7 +80,6 @@ class BugController extends Controller{
         }else{
             return response() -> json(array('message'=>'Cannot update because record not found', 'status'=>false),200);
         }
-
     }
 
 
