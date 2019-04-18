@@ -70,19 +70,19 @@ class BugController extends Controller{
             if($request->name != null){$data->name = $request->name;}
             if($request->description != null){ $data->description = $request->description; }
 
-            BugModel::where('id', $id) -> update(['name' => $data->name, 'description' => $data->description]);
-
             $photo = $request->file('photo');
-            //$bug->name = $request->name;
-            //$bug->description = $request->description;
             if($photo != null){
                 $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                $data->photo = "uploads/".$photo->getFilename().'.'.$extension;
+                $request->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
-            BugModel::where('id',$id) -> update(['photo' => $data->photo]);
+            $bug->update($request->all());
+            //BugModel::where('id', $id) -> update(['name' => $data->name, 'description' => $data->description]);
+
+
+            //BugModel::where('id',$id) -> update(['photo' => $data->photo]);
             //$bug->save();
-            return response()->json(Response::transform(BugModel::find($id), $request->name.'Successfully updated', true), 200);
+            return response()->json(Response::transform($bug, $request->name.'Successfully updated', true), 200);
         }
     }
 
