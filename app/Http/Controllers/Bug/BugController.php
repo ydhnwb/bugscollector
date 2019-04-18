@@ -50,7 +50,7 @@ class BugController extends Controller{
     public function show($id)    {
         $bug = BugModel::find($id);
         if(is_null($bug)){
-            return response()->json(Response::transform($bug,"record not found", false), 200);
+			return response() -> json(array('message'=>'record not found', 'status'=>false),200);
         }
         return response() -> json(Response::transform($bug,"found", true), 200);
     }
@@ -92,8 +92,8 @@ class BugController extends Controller{
     public function destroy($id){
         $bug = BugModel::find($id);
         if(is_null($bug)){
-            return response() -> json(array('message'=>'cannot delete because record not found', 'status'=>200),200);
+            return response() -> json(array('message'=>'cannot delete because record not found', 'status'=>false),200);
         }
-        return response() -> json(array('message'=>'succesfully deleted', 'status' => 204), 204);
+        return response() -> json(array('message'=>'succesfully deleted', 'status' => false), 200);
     }
 }
