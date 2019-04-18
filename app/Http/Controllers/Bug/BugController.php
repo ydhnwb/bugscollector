@@ -74,8 +74,8 @@ class BugController extends Controller{
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
                 $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
-            $bug->save();
-            return response()->json(Response::transform($bug, 'Successfully updated', true), 200);
+            //$bug->save();
+            return response()->json(Response::transform($bug, $bug->name.'Successfully updated', true), 200);
         }
     }
 
