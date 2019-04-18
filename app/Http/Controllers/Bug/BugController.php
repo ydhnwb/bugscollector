@@ -82,7 +82,7 @@ class BugController extends Controller{
             }
             BugModel::where('id',$id) -> update(['photo' => $data->photo]);
             //$bug->save();
-            return response()->json(Response::transform(BugModel::find($id), $bug->name.'Successfully updated', true), 200);
+            return response()->json(Response::transform(BugModel::find($id), $request->name.'Successfully updated', true), 200);
         }
     }
 
