@@ -63,16 +63,17 @@ class BugController extends Controller{
 
 
     public function update(Request $request, $id){
+        $retrieve = $request->all();
         $bug = BugModel::find($id);
         if($bug != null){
-            if($request->file('photo') != null){
-                $photo = $request->file('photo');
+            if($retrieve->file('photo') != null){
+                $photo = $retrieve->file('photo');
                 $extension = $photo->getClientOriginalExtension();
                 Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
                 $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
-            if($request->name != null){$bug->name = $request->name;}
-            if($request->description != null){ $bug->description = $request->description; }
+            if($retrieve->name != null){$bug->name = $retrieve->name;}
+            if($retrieve->description != null){ $bug->description = $retrieve->description; }
             $bug->save();
             return response()->json(
                     Response::transform(
