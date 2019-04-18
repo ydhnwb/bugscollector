@@ -67,9 +67,9 @@ class BugController extends Controller{
             return response() -> json(array('message'=>'cannot founf record', 'status' => 200), 200);
         }else{
             $rules = [
+                'id' => 'required',
                 'name' => 'required',
-                'description' => 'required|min:10',
-                'photo' => 'required'
+                'description' => 'required|min:10'
             ];
             $validator = Validator::make($request->all(), $rules);
             if($validator->fails()){
@@ -77,8 +77,9 @@ class BugController extends Controller{
             }else{
                 $photo = $request->file('photo');
                 $extension = $photo->getClientOriginalExtension();
-                Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
-                $bug = new BugModel();
+                if($photo != null){
+                    Storage::disk('public')->put($photo->getFilename().'.'.$extension,  File::get($photo));
+                }
                 $bug->name = $request->name;
                 $bug->description = $request->description;
                 $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
