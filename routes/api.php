@@ -17,4 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('bugs','Bug\BugController');
+//Route::apiResource('bugs','Bug\BugController');
+
+Route::post('bugs','Bug\BugController@store');
+Route::get('bugs','Bug\BugController@index');
+Route::post('bugs/{id}','Bug\BugController@update');
+Route::get('bugs/{id}','Bug\BugController@show');
+
