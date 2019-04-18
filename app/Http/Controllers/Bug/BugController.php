@@ -75,7 +75,7 @@ class BugController extends Controller{
                 $bug->photo = "uploads/".$photo->getFilename().'.'.$extension;
             }
             //$bug->save();
-            return response()->json(Response::transform($bug, $bug->name.'Successfully updated', true), 200);
+            return response()->json(Response::transform($bug->save(), $bug->name.'Successfully updated', true), 200);
         }
     }
 
