@@ -93,4 +93,14 @@ class BugController extends Controller{
         BugModel::destroy($id);
         return response() -> json(array('message'=>'succesfully deleted', 'status' => false), 200);
     }
+
+    public function search(Request $request){
+        $query = $request->search;
+        $bug = BugModel::where('name',$query);
+        if($bug != null){
+            return response() -> json(Response::transform($bug,"Has found", true), 200);
+        }else{
+            return response() -> json(array('message'=>'No record found', 'status' => false), 200);
+        }
+    }
 }

@@ -23,4 +23,5 @@ Route::post('bugs','Bug\BugController@store');
 Route::get('bugs','Bug\BugController@index');
 Route::post('bugs/{id}','Bug\BugController@update');
 Route::get('bugs/{id}','Bug\BugController@show');
+Route::get('bugs/search={query}', 'Bug\BugController@search');
 
