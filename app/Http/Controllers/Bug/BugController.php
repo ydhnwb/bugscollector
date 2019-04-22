@@ -96,8 +96,7 @@ class BugController extends Controller{
 
     public function search(Request $request){
         $query = $request->search;
-        return response() -> json(array('message'=>$query, 'status' => false), 200);
-        $bug = BugModel::where('name',' LIKE ', '%'.$query);
+        $bug = BugModel::where('name','LIKE','%'.$query.'%')->get();
         if($bug != null){
             return response() -> json(Response::transform($bug,"Has found", true), 200);
         }else{
