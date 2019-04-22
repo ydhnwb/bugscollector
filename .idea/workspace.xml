@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3986f0bf-dc31-437d-a5b8-621e3f3a411c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="BugController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+            <state relative-caret-position="426">
+              <caret line="98" column="57" lean-forward="false" selection-start-line="98" selection-start-column="57" selection-end-line="98" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -94,8 +93,8 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_04_17_053518_create_bug_models_table.php" />
         <option value="$PROJECT_DIR$/app/Models/BugModel.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_18_051508_create_bugs_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php" />
       </list>
     </option>
   </component>
@@ -314,12 +313,12 @@
       <workItem from="1555562870887" duration="2693000" />
       <workItem from="1555568505778" duration="301000" />
       <workItem from="1555580135042" duration="5866000" />
-      <workItem from="1555917715647" duration="646000" />
+      <workItem from="1555917715647" duration="1084000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9506000" />
+    <option name="totallyTimeSpent" value="9944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -529,8 +528,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Bug/BugController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+        <state relative-caret-position="426">
+          <caret line="98" column="57" lean-forward="false" selection-start-line="98" selection-start-column="57" selection-end-line="98" selection-end-column="57" />
           <folding />
         </state>
       </provider>
