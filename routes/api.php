@@ -19,12 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::apiResource('bugs','Bug\BugController');
 
-Route::post('bugs','Bug\BugController@store');
-Route::get('bugs','Bug\BugController@index');
-Route::post('bugs/{id}','Bug\BugController@update');
-Route::get('bugs/{id}','Bug\BugController@show');
-Route::delete('bugs/{id}', 'Bug\BugController@destroy');
-Route::post('bugs/search/result', 'Bug\BugController@search');
+Route::post('ydh','Bug\BugController@store');
+Route::get('ydh','Bug\BugController@index');
+Route::post('ydh/{id}','Bug\BugController@update');
+Route::get('ydh/{id}','Bug\BugController@show');
+Route::delete('ydh/{id}', 'Bug\BugController@destroy');
+Route::post('ydh/search/result', 'Bug\BugController@search');
 
 
 Route::get('/news','NewsController@index');
