@@ -112,13 +112,13 @@ class NewsController extends Controller
      * @param  \App\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy($id)
     {
       $news = News::find($id);
       if(is_null($news)){
           return response() -> json(array('message'=>'cannot delete because record not found', 'status'=>false),200);
       }
-      BugModel::destroy($id);
+      News::destroy($id);
       return response() -> json(array('message'=>'succesfully deleted', 'status' => false), 200);
     }
 
