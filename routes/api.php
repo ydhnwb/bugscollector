@@ -26,3 +26,8 @@ Route::get('bugs/{id}','Bug\BugController@show');
 Route::delete('bugs/{id}', 'Bug\BugController@destroy');
 Route::post('bugs/search/result', 'Bug\BugController@search');
 
+
+Route::get('/news','NewsController@index');
+Route::post('/news','NewsController@store');
+Route::get('news/{id}','NewsController@show');
+Route::post('news/search/result', 'NewsController@search');
