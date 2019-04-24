@@ -31,3 +31,4 @@ Route::get('/news','NewsController@index');
 Route::post('/news','NewsController@store');
 Route::get('news/{id}','NewsController@show');
 Route::post('news/search/result', 'NewsController@search');
+Route::delete('news/{id}', 'NewsController@destroy');

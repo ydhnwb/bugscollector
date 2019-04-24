@@ -114,7 +114,12 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+      $news = News::find($id);
+      if(is_null($news)){
+          return response() -> json(array('message'=>'cannot delete because record not found', 'status'=>false),200);
+      }
+      BugModel::destroy($id);
+      return response() -> json(array('message'=>'succesfully deleted', 'status' => false), 200);
     }
 
     public function search(Request $request){
